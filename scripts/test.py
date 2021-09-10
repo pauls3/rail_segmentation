@@ -243,6 +243,8 @@ model = smp.PSPNet(
 )
 
 
+
+
 preprocessing_fn = smp.encoders.get_preprocessing_fn(ENCODER, ENCODER_WEIGHTS)
 
 # Training dataset
@@ -273,9 +275,32 @@ valid_loader = DataLoader(valid_dataset, batch_size=1, shuffle=False, num_worker
 # IoU/Jaccard score - https://en.wikipedia.org/wiki/Jaccard_index
 
 loss = smp.utils.losses.DiceLoss()
+# metrics = [
+#     smp.utils.metrics.IoU(threshold=0.5),
+# ]
 metrics = [
     smp.utils.metrics.IoU(threshold=0.5),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,11,13,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,11,12,14,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,17]),
+    smp.utils.metrics.IoU(threshold=0.5, ignore_channels=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
 ]
+
+
 
 optimizer = torch.optim.Adam([ 
     dict(params=model.parameters(), lr=0.0001),
@@ -304,6 +329,30 @@ valid_epoch = smp.utils.train.ValidEpoch(
     verbose=True,
 )
 
+# --------------------------------------------
+# Included names 
+
+classNames = [
+    'road', 'sidewalk', 'construction', 'tram-track', 'fence', 'pole', 'traffic-light', 'traffic-sign',
+    'vegetation', 'terrain', 'sky', 'human', 'rail-track', 'car', 'truck', 'trackbed', 'on-rails',
+    'rail-raised', 'rail-embedded'
+]
+
+
+
+train_epoch.metrics[0].__name__ = 'iou_score'
+for i in range(1, 19):
+    train_epoch.metrics[i].__name__ = classNames[i - 1]
+
+valid_epoch.metrics[0].__name__ = 'iou_score'
+for i in range(1, 19):
+    valid_epoch.metrics[i].__name__ = classNames[i - 1]
+
+# --------------------------------------------
+
+
+state_dict = torch.load('./best_model.pth')
+model.load_state_dict(state_dict.state_dict())
 
 
 # train model for 200 epochs
@@ -317,10 +366,15 @@ for i in range(0, 200):
     valid_logs = valid_epoch.run(valid_loader)
     
     # do something (save model, change lr, etc.)
-    if max_score < valid_logs['iou_score']:
-        max_score = valid_logs['iou_score']
-        torch.save(model, './best_model.pth')
-        print('Model saved!')
+    # if max_score < valid_logs['iou_score']:
+    #     max_score = valid_logs['iou_score']
+    #     torch.save(model, './best_model.pth')
+    #     print('Model saved!')
+
+    print(train_logs)
+    print(valid_logs)
+
+    torch.save(model, './checkpoints/epoch_' + str(i) +'.pth')
         
     if i == 25:
         optimizer.param_groups[0]['lr'] = 1e-5
@@ -329,4 +383,4 @@ for i in range(0, 200):
 
 
 # load best saved checkpoint
-best_model = torch.load('./best_model.pth')
+# best_model = torch.load('./best_model.pth')
