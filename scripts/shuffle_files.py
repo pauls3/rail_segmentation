@@ -82,21 +82,21 @@ def copy_paste_files(train, val, test):
     # copy train data
     for i in train:
         shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'train_images')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.png', destination + 'train_masks')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.json', destination + 'train_jsons')
+        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'train_masks')
+        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'train_jsons')
 
     
     # copy validation data
     for i in val:
         shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'validation_images')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.png', destination + 'validation_masks')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.json', destination + 'validation_jsons')
+        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'validation_masks')
+        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'validation_jsons')
 
     # copy test data
     for i in test:
         shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'test_images')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.png', destination + 'test_masks')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.json', destination + 'test_jsons')
+        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'test_masks')
+        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'test_jsons')
 
 
 
