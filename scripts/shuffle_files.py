@@ -41,10 +41,38 @@ def shuffle_data():
     print(len(val))
     print(len(test))
 
+
+    if check_duplicates(train, val, test):
+        print('There are duplicates in the data splits!')
+    else:
+        copy_paste_files(train, val, test)
+
     # train = arr1[:int((len(arr1)+1)*.80)] #Remaining 80% to training set
     # val = arr1[int((len(arr1)+1)*.80):] #Splits 20% data to test set
 
     # copy_paste_files(train, val, test)
+
+
+"""
+Check if there are any duplicates in the data splits. Returns false if there are none, returns true if there are.
+"""
+
+def check_duplicates(train, val, test):
+    for i in train:
+        for j in val:
+            if i == j:
+                return True
+    
+        for j in test:
+            if i == j:
+                return True
+    
+    for i in val:
+        for j in test:
+            if i == j:
+                return True
+    
+    return False
 
 
 def copy_paste_files(train, val, test):
