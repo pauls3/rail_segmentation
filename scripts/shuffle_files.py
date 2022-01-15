@@ -89,7 +89,7 @@ def check_duplicates(train, val, test):
 
 def copy_paste_files(train, val, test):
     print('copying and pasting files...')
-    destination = '/home/stanik/rtis_lab/data/RailSem19/paper_split/'
+    destination = '/home/stanik/rtis_lab/data/RailSem19/rs19_4000/'
 
     # copy train data
     for i in train:
