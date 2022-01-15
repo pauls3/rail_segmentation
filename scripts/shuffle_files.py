@@ -7,7 +7,7 @@ Random seed: 17
 import json
 import os
 import pandas as pd
-import random
+# import random
 from pathlib import Path
 import numpy as np
 import shutil
@@ -16,14 +16,26 @@ def shuffle_data():
     print("shuffling...")
 
     # Get file names (json and images share same names)
-    arr0 = os.listdir('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val')
-    arr1 = []
+    # arr0 = os.listdir('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val')
+    # arr1 = []
 
-    for i in arr0:
-        arr1.append(Path(i).stem)
+    # for i in arr0:
+    #     arr1.append(Path(i).stem)
+
+    with open('railsem19_splits/test.txt') as file:
+        test = file.readlines()
+        test = [line.rstrip() for line in test]
     
-    random.seed(17)
-    random.shuffle(arr1)
+    with open('railsem19_splits/train.txt') as file:
+        train = file.readlines()
+        train = [line.rstrip() for line in train]
+
+    with open('railsem19_splits/val.txt') as file:
+        val = file.readlines()
+        val = [line.rstrip() for line in val]
+        
+    # random.seed(17)
+    # random.shuffle(arr1)
 
     # Train = 80%
     # Validation = 10%
@@ -34,23 +46,23 @@ def shuffle_data():
     # val =  rest_data[int((len(arr1)+1)*.50):] # Split 50% (10% overall)
     # test = rest_data[:int((len(arr1)+1)*.50)] # split 50% (10% overall)
 
-    train, val, test = np.split(arr1, [int(.8*len(arr1)), int(.9*len(arr1))])
+    # train, val, test = np.split(arr1, [int(.8*len(arr1)), int(.9*len(arr1))])
 
-    print(len(arr1))
-    print(len(train))
-    print(len(val))
-    print(len(test))
+    # print(len(arr1))
+    # print(len(train))
+    # print(len(val))
+    # print(len(test))
 
 
-    if check_duplicates(train, val, test):
-        print('There are duplicates in the data splits!')
-    else:
-        copy_paste_files(train, val, test)
+    # if check_duplicates(train, val, test):
+    #     print('There are duplicates in the data splits!')
+    # else:
+    #     copy_paste_files(train, val, test)
 
     # train = arr1[:int((len(arr1)+1)*.80)] #Remaining 80% to training set
     # val = arr1[int((len(arr1)+1)*.80):] #Splits 20% data to test set
 
-    # copy_paste_files(train, val, test)
+    copy_paste_files(train, val, test)
 
 
 """
@@ -77,7 +89,7 @@ def check_duplicates(train, val, test):
 
 def copy_paste_files(train, val, test):
     print('copying and pasting files...')
-    destination = '/home/stanik/rtis_lab/data/RailSem19/custom_split/'
+    destination = '/home/stanik/rtis_lab/data/RailSem19/paper_split/'
 
     # copy train data
     for i in train:
