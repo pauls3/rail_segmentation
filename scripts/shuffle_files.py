@@ -45,6 +45,7 @@ def shuffle_data():
     if check_duplicates(train, val, test):
         print('There are duplicates in the data splits!')
     else:
+        create_directories()
         copy_paste_files(train, val, test)
 
     # train = arr1[:int((len(arr1)+1)*.80)] #Remaining 80% to training set
@@ -73,6 +74,23 @@ def check_duplicates(train, val, test):
                 return True
     
     return False
+
+
+
+def create_directories():
+    dirs = [
+        'train_images', 'train_masks', 'train_jsons',
+        'validation_images', 'validation_masks', 'validation_jsons',
+        'test_images', 'test_masks', 'test_jsons'
+        ]
+
+    parent = '/home/paul/data/RailSem19/custom_split/'
+    os.mkdir(parent)
+
+    for ii in dirs:
+         os.mkdir(os.path.join(parent, ii))
+
+
 
 
 def copy_paste_files(train, val, test):
