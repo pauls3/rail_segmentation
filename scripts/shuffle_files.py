@@ -13,7 +13,7 @@ import numpy as np
 import shutil
 
 def shuffle_data():
-    print("shuffling...")
+    # print("shuffling...")
 
     # Get file names (json and images share same names)
     # arr0 = os.listdir('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val')
@@ -22,15 +22,15 @@ def shuffle_data():
     # for i in arr0:
     #     arr1.append(Path(i).stem)
 
-    with open('railsem19_splits/test.txt') as file:
+    with open('ai_server_splits/test_split.txt') as file:
         test = file.readlines()
         test = [line.rstrip() for line in test]
     
-    with open('railsem19_splits/train.txt') as file:
+    with open('ai_server_splits/train_split.txt') as file:
         train = file.readlines()
         train = [line.rstrip() for line in train]
 
-    with open('railsem19_splits/val.txt') as file:
+    with open('ai_server_splits/val_split.txt') as file:
         val = file.readlines()
         val = [line.rstrip() for line in val]
         
@@ -62,6 +62,7 @@ def shuffle_data():
     # train = arr1[:int((len(arr1)+1)*.80)] #Remaining 80% to training set
     # val = arr1[int((len(arr1)+1)*.80):] #Splits 20% data to test set
 
+    create_directories()
     copy_paste_files(train, val, test)
 
 
@@ -87,28 +88,46 @@ def check_duplicates(train, val, test):
     return False
 
 
+
+def create_directories(): 
+    dirs = [ 
+        'train_images', 'train_masks', 'train_jsons', 
+        'validation_images', 'validation_masks', 'validation_jsons', 
+        'test_images', 'test_masks', 'test_jsons' 
+        ] 
+ 
+    parent = '/home/paul/data/RailSem19/custom_split/' 
+    os.mkdir(parent) 
+ 
+    for ii in dirs: 
+         os.mkdir(os.path.join(parent, ii)) 
+
+
+
 def copy_paste_files(train, val, test):
     print('copying and pasting files...')
-    destination = '/home/stanik/rtis_lab/data/RailSem19/rs19_4000/'
+    destination = '/home/paul/data/RailSem19/custom_split/'
+
+
 
     # copy train data
     for i in train:
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'train_images')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'train_masks')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'train_jsons')
+        shutil.copy2('/home/paul/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'train_images')
+        shutil.copy2('/home/paul/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'train_masks')
+        shutil.copy2('/home/paul/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'train_jsons')
 
     
     # copy validation data
     for i in val:
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'validation_images')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'validation_masks')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'validation_jsons')
+        shutil.copy2('/home/paul/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'validation_images')
+        shutil.copy2('/home/paul/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'validation_masks')
+        shutil.copy2('/home/paul/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'validation_jsons')
 
     # copy test data
     for i in test:
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'test_images')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'test_masks')
-        shutil.copy2('/home/stanik/rtis_lab/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'test_jsons')
+        shutil.copy2('/home/paul/data/RailSem19/jpgs/rs19_val/' + i + '.jpg', destination + 'test_images')
+        shutil.copy2('/home/paul/data/RailSem19/uint8/rs19_val/' + i + '.png', destination + 'test_masks')
+        shutil.copy2('/home/paul/data/RailSem19/jsons/rs19_val/' + i + '.json', destination + 'test_jsons')
 
 
 
