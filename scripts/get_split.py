@@ -2,10 +2,8 @@
 Get file names for split (train/val/test) in AI server.
 """
 
-
 import os
 from pathlib import Path
-
 
 def get_names():
     print("shuffling...")
@@ -28,12 +26,16 @@ def get_names():
     
     os.mkdir('splits')
 
+
     with open('splits/test_split.txt', 'w') as f:
-        f.write('\n'.join([' '.join(text) for text in test0]))
+        for ii in test0:
+            f.write(ii + '\n')
     with open('splits/train_split.txt', 'w') as f:
-        f.write('\n'.join([' '.join(text) for text in val0]))
+        for ii in train0:
+            f.write(ii + '\n')
     with open('splits/val_split.txt', 'w') as f:
-        f.write('\n'.join([' '.join(text) for text in train0]))
+        for ii in val0:
+            f.write(ii + '\n')
 
 
 def main():
