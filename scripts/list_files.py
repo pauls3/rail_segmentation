@@ -21,7 +21,7 @@ def create_list():
     
     file1 = open('rs19_val.txt', 'w')
     for ii in arr0:
-        file1.write(str(destination + '/validation_images/' + ii))
+        file1.write(str(destination + '/validation_images/' + ii + '\n'))
     file1.close()
 
 # def copy_paste_files(train, val):
