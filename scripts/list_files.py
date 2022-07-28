@@ -20,7 +20,8 @@ def create_list():
     #     arr1.append(Path(i).stem)
     
     file1 = open('rs19_val.txt', 'w')
-    file1.writelines(arr0)
+    for ii in arr0:
+        file1.write(str(destination + '/validation_images/' + ii))
     file1.close()
 
 # def copy_paste_files(train, val):
