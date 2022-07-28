@@ -8,15 +8,15 @@ def create_list():
     print("shuffling...")
 
     # Get file names (json and images share same names)
-    arr0 = os.listdir(destination + 'validation_images')
+    arr0 = os.listdir(destination + 'train_images')
     arr1 = []
 
     for i in arr0:
         arr1.append(Path(i).stem)
     
-    file1 = open('rs19_val.txt', 'w')
+    file1 = open('rs19_train.txt', 'w')
     for ii in arr1:
-        file1.write(str(destination + 'validation_images/' + ii + '.jpg' + '\t' + destination + 'validation_masks/' + ii + '.png' + '\n'))
+        file1.write(str(destination + 'train_images/' + ii + '.jpg' + '\t' + destination + 'train_masks/' + ii + '.png' + '\n'))
     file1.close()
 
 # def copy_paste_files(train, val):
