@@ -1,7 +1,7 @@
 import os
 
-folder = 'C:/Users/Paul/source/datasets/rail_semantic/rail_segmentation/'
-count = 0
+folder = 'C:\\Users\\Paul\\source\datasets\\rail_semantic\\final\\Zillur - done\\img\\'
+count = 144
 # count increase by 1 in each iteration
 # iterate all files from a directory
 for file_name in os.listdir(folder):
@@ -19,8 +19,13 @@ for file_name in os.listdir(folder):
     # Construct old file name
     source = folder + file_name
 
-    # Adding the count to the new file name and extension
-    destination = folder + strCount + ".png"
+    split_tup = os.path.splitext(file_name)
+    file_extension = split_tup[1]
+    if file_extension == '.png' or file_extension == '.jpg' or file_extension == '.jpeg':
+        # Adding the count to the new file name and extension
+        destination = folder + strCount + file_extension
+    else:
+        destination = folder + strCount + '.png'
 
     # Renaming the file
     os.rename(source, destination)

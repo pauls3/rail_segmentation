@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Load image
-im = cv2.imread('C:/Users/Paul/source/datasets/rs19/uint8/rs19_val/rs04522.png')
+im = cv2.imread('C:/Users/Paul/source/datasets/rs19/uint8/rs19_val/rs00205.png')
 
 # Make all perfectly green pixels white
 im[np.all(im == (0, 0, 0), axis=-1)] = (128,64,128)
@@ -27,4 +27,4 @@ im[np.all(im == (18, 18, 18), axis=-1)] = (63,68,0)
 
 
 # Save result
-cv2.imwrite('C:/Users/Paul/source/datasets/rs19/rgb-ground-truth/rs04522.png',im)
+cv2.imwrite('C:/Users/Paul/source/datasets/rs19/rgb-ground-truth/rs00205.png',im)
