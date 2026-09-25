@@ -1,0 +1,112 @@
+{
+  "person": [
+    1,
+    1,
+    1
+  ],
+  "truck": [
+    2,
+    2,
+    2
+  ],
+  "rail-track": [
+    3,
+    3,
+    3
+  ],
+  "vegetation-overgrowth": [
+    4,
+    4,
+    4
+  ],
+  "car": [
+    5,
+    5,
+    5
+  ],
+  "on-rails": [
+    6,
+    6,
+    6
+  ],
+  "traffic-sign": [
+    7,
+    7,
+    7
+  ],
+  "road": [
+    8,
+    8,
+    8
+  ],
+  "sidewalk": [
+    9,
+    9,
+    9
+  ],
+  "construction": [
+    10,
+    10,
+    10
+  ],
+  "tram-track": [
+    11,
+    11,
+    11
+  ],
+  "pole": [
+    12,
+    12,
+    12
+  ],
+  "traffic-light": [
+    13,
+    13,
+    13
+  ],
+  "mud-pumping": [
+    14,
+    14,
+    14
+  ],
+  "fence": [
+    15,
+    15,
+    15
+  ],
+  "terrain": [
+    16,
+    16,
+    16
+  ],
+  "sky": [
+    17,
+    17,
+    17
+  ],
+  "rail-embedded": [
+    18,
+    18,
+    18
+  ],
+  "rail-raised": [
+    19,
+    19,
+    19
+  ],
+  "trackbed": [
+    20,
+    20,
+    20
+  ],
+  "standing-water": [
+    21,
+    21,
+    21
+  ],
+    "void": [
+    255,
+    255,
+    255
+  ]
+}
