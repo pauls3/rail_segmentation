@@ -4,6 +4,7 @@ image_dir = "rad_9_22_2026\\img"
 masks_human_dir = "rad_9_22_2026\\masks_human"
 masks_machine_dir = "rad_9_22_2026\\masks_machine"
 masks_machine_rgb_dir = "rad_9_22_2026\\masks_machine_to_rgb"
+json_dir = "rad_9_22_2026\\jsons"
 
 count = 0
 
@@ -27,7 +28,7 @@ for file_name in os.listdir(image_dir):
     source_file_human = os.path.join(masks_human_dir, split_file_name[0] + ".png")
     source_file_machine = os.path.join(masks_machine_dir, split_file_name[0] + ".png")
     source_file_machine_rgb = os.path.join(masks_machine_rgb_dir, split_file_name[0] + ".png")
-
+    source_file_json = os.path.join(json_dir, file_name + ".json")
 
 
     split_img = os.path.splitext(source_file_img)
@@ -43,11 +44,11 @@ for file_name in os.listdir(image_dir):
     file_extension_machine_rgb = split_machine_rgb[1]
 
 
-
     destination_img = os.path.join(image_dir, strCount + file_extension_img)
     destination_human = os.path.join(masks_human_dir, strCount + file_extension_human)
     destination_machine = os.path.join(masks_machine_dir, strCount + file_extension_machine)    
     destination_machine_rgb = os.path.join(masks_machine_rgb_dir, strCount + file_extension_machine_rgb)    
+    destination_json = os.path.join(json_dir, strCount + ".json")
 
 
     # Renaming the file
@@ -55,6 +56,7 @@ for file_name in os.listdir(image_dir):
     os.rename(source_file_human, destination_human)
     os.rename(source_file_machine, destination_machine)
     os.rename(source_file_machine_rgb, destination_machine_rgb)
+    os.rename(source_file_json, destination_json)
 
 
     count += 1
